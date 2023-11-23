@@ -20,6 +20,7 @@ public class ProductServiceImpl implements ProductService{
 	public ResponseEntity<String> addProduct(Map<String, String> requestMap) {
 		try {
 //			Business Logic here 
+			return new ResponseEntity<String>("Success", HttpStatus.OK);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<String>("Something Went Wrong", HttpStatus.INTERNAL_SERVER_ERROR);
