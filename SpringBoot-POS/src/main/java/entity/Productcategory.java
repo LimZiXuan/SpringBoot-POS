@@ -7,31 +7,36 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Productcategory {
+public class ProductCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private String id;
+	private Integer id;
 	private String name;
-	private String datecreated;
-	
-	public String getId() {
+	private String dateCreated;
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getDatecreated() {
-		return datecreated;
+		return dateCreated;
 	}
+
 	public void setDatecreated(String datecreated) {
-		this.datecreated = datecreated;
+		this.dateCreated = datecreated;
 	}
 
 }

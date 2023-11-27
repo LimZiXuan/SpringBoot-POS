@@ -12,37 +12,47 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private String id;
-	private String cashierid;
-	private String cardid;
-	private String purchaseid;
+	private String cashierId;
+	private String cardId;
+	private String purchaseId;
 	private String amount;
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getCashierid() {
-		return cashierid;
+		return cashierId;
 	}
+
 	public void setCashierid(String cashierid) {
-		this.cashierid = cashierid;
+		this.cashierId = cashierid;
 	}
+
 	public String getCardid() {
-		return cardid;
+		return cardId;
 	}
+
 	public void setCardid(String cardid) {
-		this.cardid = cardid;
+		this.cardId = cardid;
 	}
+
 	public String getPurchaseid() {
-		return purchaseid;
+		return purchaseId;
 	}
+
 	public void setPurchaseid(String purchaseid) {
-		this.purchaseid = purchaseid;
+		this.purchaseId = purchaseid;
 	}
+
 	public String getAmount() {
 		return amount;
 	}
+
 	public void setAmount(String amount) {
 		this.amount = amount;
 	}

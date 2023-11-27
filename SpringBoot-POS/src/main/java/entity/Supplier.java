@@ -11,27 +11,32 @@ public class Supplier {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private String id;
-	private String companyname;
-	private String lastdatesupplied;
-	
-	public String getId() {
+	private Integer id;
+	private String companyName;
+	private String lastDateSupplied;
+
+	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
+
+	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getCompanyname() {
-		return companyname;
+		return companyName;
 	}
+
 	public void setCompanyname(String companyname) {
-		this.companyname = companyname;
+		this.companyName = companyname;
 	}
+
 	public String getLastdatesupplied() {
-		return lastdatesupplied;
+		return lastDateSupplied;
 	}
+
 	public void setLastdatesupplied(String lastdatesupplied) {
-		this.lastdatesupplied = lastdatesupplied;
+		this.lastDateSupplied = lastdatesupplied;
 	}
 
 }
