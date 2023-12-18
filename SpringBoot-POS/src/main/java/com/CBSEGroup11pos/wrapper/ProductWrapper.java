@@ -1,4 +1,4 @@
-package wrapper;
+package com.CBSEGroup11pos.wrapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

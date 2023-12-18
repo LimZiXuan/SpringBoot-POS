@@ -1,9 +1,9 @@
-package service;
+package com.CBSEGroup11pos.service;
 
 import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 
 public interface ProductService {
-	ResponseEntity<String> addProduct(Map<String, String> requestMap);
+	ResponseEntity<String> addProduct(String requestMap);
 }

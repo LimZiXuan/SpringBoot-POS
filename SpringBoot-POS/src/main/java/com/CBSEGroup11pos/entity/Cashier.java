@@ -1,4 +1,4 @@
-package entity;
+package com.CBSEGroup11pos.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,23 +7,25 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Customer {
+public class Cashier {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-	private String id;
+	private Integer id;
 	private String name;
 	private Integer age;
 	private String gender;
 	private String address;
 	private String phone;
 	private String email;
+	private String password;
+	private String dateCreated;
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -73,6 +75,22 @@ public class Customer {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getDatecreated() {
+		return dateCreated;
+	}
+
+	public void setDatecreated(String datecreated) {
+		this.dateCreated = datecreated;
 	}
 
 }

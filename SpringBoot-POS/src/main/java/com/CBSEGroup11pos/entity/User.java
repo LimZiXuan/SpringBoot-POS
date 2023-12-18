@@ -1,4 +1,4 @@
-package entity;
+package com.CBSEGroup11pos.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,13 +7,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class ProductCategory {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	private String name;
-	private String dateCreated;
 
 	public Integer getId() {
 		return id;
@@ -29,14 +28,6 @@ public class ProductCategory {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getDatecreated() {
-		return dateCreated;
-	}
-
-	public void setDatecreated(String datecreated) {
-		this.dateCreated = datecreated;
 	}
 
 }

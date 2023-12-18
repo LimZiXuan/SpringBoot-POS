@@ -1,4 +1,4 @@
-package entity;
+package com.CBSEGroup11pos.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -7,13 +7,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Supplier {
+public class ProductCategory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-	private String companyName;
-	private String lastDateSupplied;
+	private String name;
+	private String dateCreated;
 
 	public Integer getId() {
 		return id;
@@ -23,20 +23,20 @@ public class Supplier {
 		this.id = id;
 	}
 
-	public String getCompanyname() {
-		return companyName;
+	public String getName() {
+		return name;
 	}
 
-	public void setCompanyname(String companyname) {
-		this.companyName = companyname;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getLastdatesupplied() {
-		return lastDateSupplied;
+	public String getDatecreated() {
+		return dateCreated;
 	}
 
-	public void setLastdatesupplied(String lastdatesupplied) {
-		this.lastDateSupplied = lastdatesupplied;
+	public void setDatecreated(String datecreated) {
+		this.dateCreated = datecreated;
 	}
 
 }

@@ -1,4 +1,4 @@
-package serviceImpl;
+package com.CBSEGroup11pos.serviceImpl;
 
 import java.util.Map;
 
@@ -7,17 +7,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import dao.ProductDao;
-import service.ProductService;
+import com.CBSEGroup11pos.dao.ProductDao;
+import com.CBSEGroup11pos.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 	
-	@Autowired
-	ProductDao dao;
+//	@Autowired
+//	ProductDao dao;
 
 	@Override
-	public ResponseEntity<String> addProduct(Map<String, String> requestMap) {
+	public ResponseEntity<String> addProduct(String requestMap) {
 		try {
 //			Business Logic here 
 			return new ResponseEntity<String>("Success", HttpStatus.OK);
