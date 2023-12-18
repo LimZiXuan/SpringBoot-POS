@@ -29,20 +29,20 @@ public class Supplier {
 		this.id = id;
 	}
 
-	public String getCompanyname() {
+	public String getCompanyName() {
 		return companyName;
 	}
 
-	public void setCompanyname(String companyname) {
-		this.companyName = companyname;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
-	public String getLastdatesupplied() {
+	public String getLastDateSupplied() {
 		return lastDateSupplied;
 	}
 
-	public void setLastdatesupplied(String lastdatesupplied) {
-		this.lastDateSupplied = lastdatesupplied;
+	public void setLastDateSupplied(String lastDateSupplied) {
+		this.lastDateSupplied = lastDateSupplied;
 	}
 
 }
