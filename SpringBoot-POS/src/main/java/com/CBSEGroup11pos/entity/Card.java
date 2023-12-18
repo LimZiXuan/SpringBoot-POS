@@ -5,18 +5,32 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "card")
 public class Card {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "cardnumber")
 	private String cardNumber;
+
+	@Column(name = "customerid")
 	private String customerId;
+
+	@Column(name = "amount")
 	private String amount;
+
+	@Column(name = "lastuseddate")
 	private String lastUsedDate;
+
+	@Column(name = "registerdate")
 	private String registerDate;
+
+	@Column(name = "expireddate")
 	private String expiredDate;
+
+	@Column(name = "pin")
 	private Integer pin;
 
 	public String getCardNumber() {
