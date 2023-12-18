@@ -1,24 +1,42 @@
-package entity;
+package com.CBSEGroup11pos.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "productitems")
 public class ProductItems {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
+	@Column(name = "barcode")
 	private String barcode;
+
+	@Column(name = "name")
 	private String name;
+
+	@Column(name = "categoryid")
 	private Integer categoryId;
+
+	@Column(name = "dateadded")
 	private String dateAdded;
+
+	@Column(name = "expireddate")
 	private String expiredDate;
+
+	@Column(name = "price")
 	private String price;
+
+	@Column(name = "supplierid")
 	private Integer supplierId;
+
+	@Column(name = "stockamount")
 	private String stockAmount;
+
+	@Column(name = "count")
 	private Integer count;
 
 	public String getBarcode() {

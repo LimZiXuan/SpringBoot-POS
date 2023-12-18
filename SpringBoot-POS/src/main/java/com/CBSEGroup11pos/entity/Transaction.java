@@ -1,20 +1,30 @@
-package entity;
+package com.CBSEGroup11pos.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "transaction")
 public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private String id;
+
+	@Column(name = "cashierid")
 	private String cashierId;
+
+	@Column(name = "cardid")
 	private String cardId;
+
+	@Column(name = "purchaseid")
 	private String purchaseId;
+
+	@Column(name = "amount")
 	private String amount;
 
 	public String getId() {

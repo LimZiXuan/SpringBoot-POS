@@ -1,4 +1,4 @@
-package rest;
+package com.CBSEGroup11pos.rest;
 
 import java.util.Map;
 
@@ -12,5 +12,5 @@ public interface ProductRest {
 
 	
 	@PostMapping(path = "/addProduct")
-	ResponseEntity<String> addProduct(@RequestBody Map<String, String> requestMap);
+	ResponseEntity<String> addProduct(@RequestBody String requestMap);
 }

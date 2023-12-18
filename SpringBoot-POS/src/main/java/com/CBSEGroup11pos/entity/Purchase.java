@@ -1,22 +1,36 @@
-package entity;
+package com.CBSEGroup11pos.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "purchase")
 public class Purchase {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
+
+	@Column(name = "date")
 	private String date;
+
+	@Column(name = "time")
 	private String time;
+
+	@Column(name = "cashierid")
 	private Integer cashierId;
+
+	@Column(name = "barcode")
 	private String barcode;
+
+	@Column(name = "quantity")
 	private String quantity;
+
+	@Column(name = "totalamount")
 	private String totalAmount;
 
 	public Integer getId() {

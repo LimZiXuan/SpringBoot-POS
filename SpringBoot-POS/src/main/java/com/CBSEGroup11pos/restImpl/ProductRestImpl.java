@@ -1,4 +1,4 @@
-package restImpl;
+package com.CBSEGroup11pos.restImpl;
 
 import java.util.Map;
 
@@ -9,9 +9,10 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.CBSEGroup11pos.rest.ProductRest;
+import com.CBSEGroup11pos.service.ProductService;
+
 import lombok.RequiredArgsConstructor;
-import rest.ProductRest;
-import service.ProductService;
 
 @RestController
 public class ProductRestImpl implements ProductRest{
@@ -20,7 +21,7 @@ public class ProductRestImpl implements ProductRest{
 	private ProductService productService;
 
 	@Override
-	public ResponseEntity<String> addProduct(Map<String, String> requestMap) {
+	public ResponseEntity<String> addProduct(String requestMap) {
 		try {
 			return productService.addProduct(requestMap);
 		} catch (Exception e) {
