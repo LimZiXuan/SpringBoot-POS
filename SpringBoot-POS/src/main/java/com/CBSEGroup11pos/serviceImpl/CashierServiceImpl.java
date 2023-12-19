@@ -19,22 +19,43 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class CashierServiceImpl implements CashierService{
-	
+public class CashierServiceImpl implements CashierService {
+
 	@Autowired
 	CashierDao cashierDao;
-	
+
 	@Override
-	public Cashier viewCashierInfo(String cashierId) {
+	public Cashier getCashier(String cashierId) {
 //			Business Logic here 
-			return cashierDao.findById(cashierId).orElseThrow(() -> new EntityNotFoundException("Cashier not found with id: " + cashierId));
+		return cashierDao.findById(cashierId)
+				.orElseThrow(() -> new EntityNotFoundException("Cashier not found with id: " + cashierId));
 	}
-	
+
 	@Override
 	public Cashier addCashier(Cashier cashier) {
 		return cashierDao.save(cashier);
 	}
-	
+
+	@Override
+	public Cashier updateCashier(String cashierId, Cashier updatedCashier) {
+
+		Cashier existingCashier = getCashier(cashierId);
+
+		// Update properties of the existing Cashier entity with values from
+		// updatedCashier
+		existingCashier.setName(updatedCashier.getName());
+		existingCashier.setAge(updatedCashier.getAge());
+		existingCashier.setGender(updatedCashier.getGender());
+		existingCashier.setAddress(updatedCashier.getAddress());
+		existingCashier.setPhone(updatedCashier.getPhone());
+		existingCashier.setEmail(updatedCashier.getEmail());
+		existingCashier.setPassword(updatedCashier.getPassword());
+		existingCashier.setDatecreated(updatedCashier.getDatecreated());
+
+		// Save the updated Cashier entity back to the database
+		return cashierDao.save(existingCashier);
+	}
+
 	@Override
 	public void deleteCashier(String cashierId) {
 		cashierDao.deleteById(cashierId);
@@ -42,48 +63,47 @@ public class CashierServiceImpl implements CashierService{
 
 	@Override
 	public ResponseEntity<String> viewSalesHistory(String cashierId) {
-	    try {
-	        // Fetch purchase details
-	        List<Object[]> purchaseDetails = cashierDao.getCashierPurchaseDetails(cashierId);
-	        
-	     // Log the purchase details to console for debugging
-	        System.out.println("Purchase Details:");
-	        for (Object[] row : purchaseDetails) {
-	            if (row != null) {
-	                System.out.println(Arrays.toString(row));
-	            } else {
-	            	System.out.println("It's null");
-	            }
-	        }
+		try {
+			// Fetch purchase details
+			List<Object[]> purchaseDetails = cashierDao.getCashierPurchaseDetails(cashierId);
 
-	        // Process and construct JSON response
-	        List<ObjectNode> jsonList = new ArrayList<>();
-	        ObjectMapper objectMapper = new ObjectMapper();
+			// Log the purchase details to console for debugging
+			System.out.println("Purchase Details:");
+			for (Object[] row : purchaseDetails) {
+				if (row != null) {
+					System.out.println(Arrays.toString(row));
+				} else {
+					System.out.println("It's null");
+				}
+			}
 
-	        for (Object[] row : purchaseDetails) {
-	            ObjectNode json = objectMapper.createObjectNode();
-	            json.put("barcode", (String) row[0]);
-	            json.put("productName", (String) row[1]);
-	            json.put("purchaseDate", (String) row[2]);
-	            json.put("quantity", (String) row[3]);
-	            json.put("totalAmount", (String) row[4]);
-	            jsonList.add(json);
-	        }
+			// Process and construct JSON response
+			List<ObjectNode> jsonList = new ArrayList<>();
+			ObjectMapper objectMapper = new ObjectMapper();
 
-	        // Convert the list of JSON objects to a JSON array
-	        ArrayNode jsonArray = objectMapper.valueToTree(jsonList);
+			for (Object[] row : purchaseDetails) {
+				ObjectNode json = objectMapper.createObjectNode();
+				json.put("barcode", (String) row[0]);
+				json.put("productName", (String) row[1]);
+				json.put("purchaseDate", (String) row[2]);
+				json.put("quantity", (String) row[3]);
+				json.put("totalAmount", (String) row[4]);
+				jsonList.add(json);
+			}
 
-	        // Construct the final response string
-	        String jsonResponse = jsonArray.toString();
-	        return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
+			// Convert the list of JSON objects to a JSON array
+			ArrayNode jsonArray = objectMapper.valueToTree(jsonList);
 
-	    } catch (NumberFormatException e) {
-	        // Handle the case where cashierId is not a valid integer
-	        return new ResponseEntity<>("Invalid cashierId", HttpStatus.BAD_REQUEST);
+			// Construct the final response string
+			String jsonResponse = jsonArray.toString();
+			return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
 
-	    } catch (Exception e) {
-	        return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+		} catch (NumberFormatException e) {
+			// Handle the case where cashierId is not a valid integer
+			return new ResponseEntity<>("Invalid cashierId", HttpStatus.BAD_REQUEST);
+
+		} catch (Exception e) {
+			return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
-	
 }

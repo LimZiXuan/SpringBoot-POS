@@ -20,7 +20,7 @@ public class CashierRestImpl implements CashierRest {
 	@Override
 	public ResponseEntity<Cashier> viewCashierInfo(String cashierId) {
 		try {
-			Cashier fetchedCashier = cashierService.viewCashierInfo(cashierId);
+			Cashier fetchedCashier = cashierService.getCashier(cashierId);
 			return new ResponseEntity<Cashier>(fetchedCashier,HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -28,7 +28,7 @@ public class CashierRestImpl implements CashierRest {
 	}
 	
 	@Override
-    public ResponseEntity<Cashier> addCashier(Map<String, String> requestMap) {
+    public ResponseEntity<String> addCashier(Map<String, String> requestMap) {
         try {
             // Extracting values from the requestMap
             String name = requestMap.get("name");
@@ -40,7 +40,7 @@ public class CashierRestImpl implements CashierRest {
             String password = requestMap.get("password");
             String dateCreated = requestMap.get("datecreated");
 
-            // Creating a Customer object
+            // Creating a Cashier object
             Cashier cashier = new Cashier();
             cashier.setName(name);
             cashier.setAge(age);
@@ -51,20 +51,53 @@ public class CashierRestImpl implements CashierRest {
             cashier.setPassword(password);
             cashier.setDatecreated(dateCreated);
 
-            // Adding the customer using the service
-            Cashier newCashier =  cashierService.addCashier(cashier);
+            // Adding the cashier using the service
+            cashierService.addCashier(cashier);
 
-            return new ResponseEntity<Cashier>(newCashier, HttpStatus.CREATED);
+            return new ResponseEntity<String>("New cashier has been added successfully.", HttpStatus.CREATED);
         } catch (Exception e) {
         	return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 	
 	@Override
+	public ResponseEntity<Cashier> updateCashier(String cashierId, Map<String, String> requestMap) {
+		try {
+            // Extracting values from the requestMap
+            String name = requestMap.get("name");
+            Integer age = Integer.parseInt(requestMap.get("age"));
+            String gender = requestMap.get("gender");
+            String address = requestMap.get("address");
+            String phone = requestMap.get("phone");
+            String email = requestMap.get("email");
+            String password = requestMap.get("password");
+            String dateCreated = requestMap.get("datecreated");
+
+            // Creating a Cashier object
+            Cashier cashier = new Cashier();
+            cashier.setName(name);
+            cashier.setAge(age);
+            cashier.setGender(gender);
+            cashier.setAddress(address);
+            cashier.setPhone(phone);
+            cashier.setEmail(email);
+            cashier.setPassword(password);
+            cashier.setDatecreated(dateCreated);
+
+            // Adding the cashier using the service
+            Cashier updatedCashier = cashierService.updateCashier(cashierId, cashier);
+
+            return new ResponseEntity<Cashier>(updatedCashier, HttpStatus.OK);
+        } catch (Exception e) {
+        	return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+	}
+	
+	@Override
 	public ResponseEntity<String> deleteCashier(String cashierId) {
 		try {
             cashierService.deleteCashier(cashierId);
-            String payload = "Cashier with ID : " + cashierId + " has been deleted";
+            String payload = "Cashier with ID : " + cashierId + " has been deleted.";
             return new ResponseEntity<String>(payload, HttpStatus.OK);
         } catch (Exception e) {
         	return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

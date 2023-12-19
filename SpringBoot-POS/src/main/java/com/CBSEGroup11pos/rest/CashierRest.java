@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,13 +20,15 @@ public interface CashierRest {
 	ResponseEntity<Cashier> viewCashierInfo (@PathVariable String cashierId);
 	
 	@PostMapping(path = "/addCashier")
-	ResponseEntity<Cashier> addCashier(@RequestBody Map<String, String> requestMap);
+	ResponseEntity<String> addCashier(@RequestBody Map<String, String> requestMap);
+	
+	@PutMapping(path = "/{cashierId}")
+	ResponseEntity<Cashier> updateCashier(@PathVariable String cashierId, @RequestBody Map<String, String> requestMap);
 	
 	@DeleteMapping(path = "/{cashierId}")
 	ResponseEntity<String> deleteCashier(@PathVariable String cashierId);
 	
 	@GetMapping(path = "/{cashierId}/sales-history")
 	ResponseEntity<String> viewSalesHistory (@PathVariable String cashierId);
-	
 
 }
