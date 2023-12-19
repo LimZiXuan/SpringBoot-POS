@@ -27,4 +27,5 @@ public interface ManageSupplierRest {
 
 	@PostMapping(path = "/delete")
 	ResponseEntity<String> deleteSupplier(@RequestParam(required = true) Integer supplierId);
+
 }
