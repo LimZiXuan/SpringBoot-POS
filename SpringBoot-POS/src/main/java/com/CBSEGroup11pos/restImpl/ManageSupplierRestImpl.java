@@ -21,4 +21,19 @@ public class ManageSupplierRestImpl implements ManageSupplierRest {
 		return ResponseEntity.ok(supplierService.findAll());
 	}
 
+	@Override
+	public ResponseEntity<SupplierWrapper> addSupplier(SupplierWrapper newSupplier) {
+		return ResponseEntity.ok(supplierService.addSupplier(newSupplier));
+	}
+
+	@Override
+	public ResponseEntity<SupplierWrapper> updateSupplier(SupplierWrapper existingSupplier) {
+		return ResponseEntity.ok(supplierService.updateSupplier(existingSupplier));
+	}
+
+	@Override
+	public ResponseEntity<String> deleteSupplier(SupplierWrapper existingSupplier) {
+		return ResponseEntity.ok(supplierService.deleteSupplier(existingSupplier));
+	}
+
 }
