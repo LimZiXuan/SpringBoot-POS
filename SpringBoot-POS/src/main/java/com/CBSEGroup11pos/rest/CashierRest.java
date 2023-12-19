@@ -17,7 +17,7 @@ import com.CBSEGroup11pos.entity.Cashier;
 public interface CashierRest {
 
 	@GetMapping(path = "/{cashierId}")
-	ResponseEntity<Cashier> viewCashierInfo (@PathVariable String cashierId);
+	ResponseEntity<Cashier> getCashier (@PathVariable String cashierId);
 	
 	@PostMapping(path = "/addCashier")
 	ResponseEntity<String> addCashier(@RequestBody Map<String, String> requestMap);

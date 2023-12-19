@@ -18,7 +18,7 @@ public class CashierRestImpl implements CashierRest {
 	private CashierService cashierService;
 	
 	@Override
-	public ResponseEntity<Cashier> viewCashierInfo(String cashierId) {
+	public ResponseEntity<Cashier> getCashier(String cashierId) {
 		try {
 			Cashier fetchedCashier = cashierService.getCashier(cashierId);
 			return new ResponseEntity<Cashier>(fetchedCashier,HttpStatus.OK);
