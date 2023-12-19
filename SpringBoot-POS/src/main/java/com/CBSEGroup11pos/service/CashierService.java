@@ -5,7 +5,8 @@ import org.springframework.http.ResponseEntity;
 import com.CBSEGroup11pos.entity.Cashier;
 
 public interface CashierService {
-	ResponseEntity<Cashier> viewCashierInfo(String cashierId);
+	Cashier viewCashierInfo(String cashierId);
+	Cashier addCashier(Cashier cashier);
 	ResponseEntity<String> viewSalesHistory (String cashierId);
 	
 }
