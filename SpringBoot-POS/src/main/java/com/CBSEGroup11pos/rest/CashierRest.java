@@ -15,6 +15,8 @@ import com.CBSEGroup11pos.entity.Cashier;
 
 @RequestMapping(path = "/cashier")
 public interface CashierRest {
+	
+	// Manage Cashier
 
 	@GetMapping(path = "/{cashierId}")
 	ResponseEntity<Cashier> getCashier (@PathVariable String cashierId);
@@ -27,6 +29,8 @@ public interface CashierRest {
 	
 	@DeleteMapping(path = "/{cashierId}")
 	ResponseEntity<String> deleteCashier(@PathVariable String cashierId);
+	
+	// View Sales History
 	
 	@GetMapping(path = "/{cashierId}/sales-history")
 	ResponseEntity<String> viewSalesHistory (@PathVariable String cashierId);
