@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.CBSEGroup11pos.entity.Cashier;
 import com.CBSEGroup11pos.rest.CashierRest;
 import com.CBSEGroup11pos.service.CashierService;
 
@@ -13,9 +14,18 @@ public class CashierRestImpl implements CashierRest {
 	
 	@Autowired
 	private CashierService cashierService;
+	
+	@Override
+	public ResponseEntity<Cashier> viewCashierInfo(String cashierId) {
+		try {
+			return cashierService.viewCashierInfo(cashierId);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	@Override
-	public ResponseEntity<String> viewSalesHistory(Long cashierId) {
+	public ResponseEntity<String> viewSalesHistory(String cashierId) {
 		try {
 			return cashierService.viewSalesHistory(cashierId);
 		} catch (Exception e) {
