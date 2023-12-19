@@ -31,4 +31,31 @@ public class ManageSupplierServiceImpl implements ManageSupplierService {
 		return allSuppliers;
 	}
 
+	@Override
+	public SupplierWrapper addSupplier(SupplierWrapper newSupplier) {
+		Supplier entity = new Supplier();
+		entity = supplierTransformer.transformObjToEntity(newSupplier);
+		supplierDao.save(entity);
+		return newSupplier;
+	}
+
+	@Override
+	public SupplierWrapper updateSupplier(Integer supplierId, SupplierWrapper existingSupplier) {
+		Supplier existingEntity = supplierDao.findById(supplierId).get();
+		if (existingEntity != null) {
+			existingEntity.setCompanyName(existingSupplier.getCompanyName());
+			existingEntity.setLastDateSupplied(existingSupplier.getLastdateSupplied());
+			supplierDao.save(existingEntity);
+			return existingSupplier;
+		}
+		return null;
+	}
+
+	@Override
+	public String deleteSupplier(Integer supplierId) {
+		supplierDao.deleteById(supplierId);
+		return "Deleted Successfully";
+
+	}
+
 }
