@@ -59,6 +59,17 @@ public class CashierRestImpl implements CashierRest {
         	return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+	
+	@Override
+	public ResponseEntity<String> deleteCashier(String cashierId) {
+		try {
+            cashierService.deleteCashier(cashierId);
+            String payload = "Cashier with ID : " + cashierId + " has been deleted";
+            return new ResponseEntity<String>(payload, HttpStatus.OK);
+        } catch (Exception e) {
+        	return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+	}
 
 	@Override
 	public ResponseEntity<String> viewSalesHistory(String cashierId) {

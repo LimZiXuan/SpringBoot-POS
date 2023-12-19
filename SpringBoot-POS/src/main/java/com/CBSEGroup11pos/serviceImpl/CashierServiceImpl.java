@@ -34,6 +34,11 @@ public class CashierServiceImpl implements CashierService{
 	public Cashier addCashier(Cashier cashier) {
 		return cashierDao.save(cashier);
 	}
+	
+	@Override
+	public void deleteCashier(String cashierId) {
+		cashierDao.deleteById(cashierId);
+	}
 
 	@Override
 	public ResponseEntity<String> viewSalesHistory(String cashierId) {
@@ -80,6 +85,5 @@ public class CashierServiceImpl implements CashierService{
 	        return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	}
-
 	
 }
