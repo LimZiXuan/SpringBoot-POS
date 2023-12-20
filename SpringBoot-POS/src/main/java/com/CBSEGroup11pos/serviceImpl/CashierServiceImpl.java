@@ -28,6 +28,24 @@ public class CashierServiceImpl implements CashierService {
 	CashierDao cashierDao;
 
 	@Override
+	public Map<String, Object> getAllCashier() {
+		Map<String, Object> response = new LinkedHashMap<>();
+
+		try {
+			// Business Logic here
+			List<Cashier> entityCards = cashierDao.findAll();
+			response.put("message", "Cashiers is retrieved successfully.");
+			response.put("success", true);
+			response.put("data", entityCards);
+			return response;
+		} catch (Exception e) {
+			response.put("message", "Cashiers has failed to retrieve.");
+			response.put("success", false);
+			return response;
+		}
+	}
+
+	@Override
 	public Map<String, Object> getCashier(String cashierId) {
 		Map<String, Object> response = new LinkedHashMap<>();
 
@@ -205,7 +223,7 @@ public class CashierServiceImpl implements CashierService {
 			response.put("message", "Cashier with ID : " + cashierId + " has been deleted.");
 			response.put("success", true);
 			return response;
-		}  catch (Exception e) {
+		} catch (Exception e) {
 			response.put("message", "Cashier with ID : " + cashierId + " has been deleted.");
 			response.put("success", false);
 			return response;

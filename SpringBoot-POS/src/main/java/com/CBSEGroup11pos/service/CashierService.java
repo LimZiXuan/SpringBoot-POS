@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import com.CBSEGroup11pos.entity.Cashier;
 
 public interface CashierService {
+	Map<String, Object> getAllCashier();
+
 	Map<String, Object> getCashier(String cashierId);
 
 	Map<String, Object> addCashier(Map<String, String> requestMap);

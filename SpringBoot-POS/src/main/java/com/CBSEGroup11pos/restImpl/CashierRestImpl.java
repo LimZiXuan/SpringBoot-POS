@@ -17,6 +17,14 @@ public class CashierRestImpl implements CashierRest {
 
 	@Autowired
 	private CashierService cashierService;
+	
+	@Override
+	public ResponseEntity<Map<String, Object>> getAllCashier() {
+
+		Map<String, Object> response = cashierService.getAllCashier();
+		HttpStatus status = (boolean) response.get("success") ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+		return new ResponseEntity<>(response, status);
+	}
 
 	@Override
 	public ResponseEntity<Map<String, Object>> getCashier(String cashierId) {

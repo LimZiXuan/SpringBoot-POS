@@ -18,6 +18,9 @@ public interface CashierRest {
 	
 	// Manage Cashier
 
+	@GetMapping(path = "/")
+	ResponseEntity<Map<String, Object>> getAllCashier ();
+	
 	@GetMapping(path = "/{cashierId}")
 	ResponseEntity<Map<String, Object>> getCashier (@PathVariable String cashierId);
 	
