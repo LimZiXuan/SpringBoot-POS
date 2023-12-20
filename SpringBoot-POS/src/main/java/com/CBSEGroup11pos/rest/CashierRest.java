@@ -19,20 +19,20 @@ public interface CashierRest {
 	// Manage Cashier
 
 	@GetMapping(path = "/{cashierId}")
-	ResponseEntity<Cashier> getCashier (@PathVariable String cashierId);
+	ResponseEntity<Map<String, Object>> getCashier (@PathVariable String cashierId);
 	
 	@PostMapping(path = "/addCashier")
-	ResponseEntity<String> addCashier(@RequestBody Map<String, String> requestMap);
+	ResponseEntity<Map<String, Object>> addCashier(@RequestBody Map<String, String> requestMap);
 	
 	@PutMapping(path = "/{cashierId}")
-	ResponseEntity<Cashier> updateCashier(@PathVariable String cashierId, @RequestBody Map<String, String> requestMap);
+	ResponseEntity<Map<String, Object>> updateCashier(@PathVariable String cashierId, @RequestBody Map<String, String> requestMap);
 	
 	@DeleteMapping(path = "/{cashierId}")
-	ResponseEntity<String> deleteCashier(@PathVariable String cashierId);
+	ResponseEntity<Map<String, Object>> deleteCashier(@PathVariable String cashierId);
 	
 	// View Sales History
 	
 	@GetMapping(path = "/{cashierId}/sales-history")
-	ResponseEntity<String> viewSalesHistory (@PathVariable String cashierId);
+	ResponseEntity<Map<String, Object>> viewSalesHistory (@PathVariable String cashierId);
 
 }

@@ -2,7 +2,10 @@ package com.CBSEGroup11pos.serviceImpl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,44 +28,147 @@ public class CashierServiceImpl implements CashierService {
 	CashierDao cashierDao;
 
 	@Override
-	public Cashier getCashier(String cashierId) {
-//			Business Logic here 
-		return cashierDao.findById(cashierId)
-				.orElseThrow(() -> new EntityNotFoundException("Cashier not found with id: " + cashierId));
+	public Map<String, Object> getCashier(String cashierId) {
+		Map<String, Object> response = new LinkedHashMap<>();
+
+		try {
+			// Business Logic here
+			Optional<Cashier> optional = cashierDao.findById(cashierId);
+
+			if (optional.isPresent()) {
+				Cashier fetchedCashier = optional.get();
+				response.put("message", "Cashier with ID : " + cashierId + " has been retrieved successfully.");
+				response.put("success", true);
+				response.put("data", fetchedCashier);
+			} else {
+				response.put("message", "Cashier with ID : " + cashierId + " is not exist.");
+				response.put("success", false);
+			}
+
+			return response;
+		} catch (Exception e) {
+			response.put("message", "Cashier with ID : " + cashierId + " is failed to retrieve.");
+			response.put("success", false);
+			return response;
+		}
 	}
 
 	@Override
-	public Cashier addCashier(Cashier cashier) {
-		return cashierDao.save(cashier);
+	public Map<String, Object> addCashier(Map<String, String> requestMap) {
+
+		Map<String, Object> response = new LinkedHashMap<>();
+
+		try {
+			// Extracting values from the requestMap
+			String name = requestMap.get("name");
+			Integer age = Integer.parseInt(requestMap.get("age"));
+			String gender = requestMap.get("gender");
+			String address = requestMap.get("address");
+			String phone = requestMap.get("phone");
+			String email = requestMap.get("email");
+			String password = requestMap.get("password");
+			String dateCreated = requestMap.get("datecreated");
+
+			// Creating a Cashier object
+			Cashier cashier = new Cashier();
+			cashier.setName(name);
+			cashier.setAge(age);
+			cashier.setGender(gender);
+			cashier.setAddress(address);
+			cashier.setPhone(phone);
+			cashier.setEmail(email);
+			cashier.setPassword(password);
+			cashier.setDatecreated(dateCreated);
+
+			// Adding the cashier using the service
+			Cashier newCashier = cashierDao.save(cashier);
+			response.put("message", "New cashier has been created successfully.");
+			response.put("success", true);
+			response.put("data", newCashier);
+			return response;
+		} catch (Exception e) {
+			response.put("message", "New cashier creation is failed.");
+			response.put("success", false);
+			return response;
+		}
 	}
 
 	@Override
-	public Cashier updateCashier(String cashierId, Cashier updatedCashier) {
+	public Map<String, Object> updateCashier(String cashierId, Map<String, String> requestMap) {
 
-		Cashier existingCashier = getCashier(cashierId);
+		Map<String, Object> response = new LinkedHashMap<>();
 
-		// Update properties of the existing Cashier entity with values from
-		// updatedCashier
-		existingCashier.setName(updatedCashier.getName());
-		existingCashier.setAge(updatedCashier.getAge());
-		existingCashier.setGender(updatedCashier.getGender());
-		existingCashier.setAddress(updatedCashier.getAddress());
-		existingCashier.setPhone(updatedCashier.getPhone());
-		existingCashier.setEmail(updatedCashier.getEmail());
-		existingCashier.setPassword(updatedCashier.getPassword());
-		existingCashier.setDatecreated(updatedCashier.getDatecreated());
+		try {
+			Optional<Cashier> optional = cashierDao.findById(cashierId);
 
-		// Save the updated Cashier entity back to the database
-		return cashierDao.save(existingCashier);
+			if (optional.isPresent()) {
+				Cashier existingCashier = optional.get();
+
+				// Extracting values from the requestMap
+				String name = requestMap.get("name");
+				Integer age = Integer.parseInt(requestMap.get("age"));
+				String gender = requestMap.get("gender");
+				String address = requestMap.get("address");
+				String phone = requestMap.get("phone");
+				String email = requestMap.get("email");
+				String password = requestMap.get("password");
+				String dateCreated = requestMap.get("datecreated");
+
+				// Update properties of the existing Cashier entity with values from
+				// updatedCashier
+				existingCashier.setName(name);
+				existingCashier.setAge(age);
+				existingCashier.setGender(gender);
+				existingCashier.setAddress(address);
+				existingCashier.setPhone(phone);
+				existingCashier.setEmail(email);
+				existingCashier.setPassword(password);
+				existingCashier.setDatecreated(dateCreated);
+
+				Cashier updatedCashier = cashierDao.save(existingCashier);
+
+				response.put("message", "Cashier with ID : " + cashierId + " has been updated successfully.");
+				response.put("success", true);
+				response.put("data", updatedCashier);
+			} else {
+				response.put("message", "Cashier with ID : " + cashierId + " is not exist.");
+				response.put("success", false);
+			}
+			return response;
+		} catch (Exception e) {
+			response.put("message", "Cashier with ID : " + cashierId + " has been failed to update.");
+			response.put("success", false);
+			return response;
+		}
 	}
 
 	@Override
-	public void deleteCashier(String cashierId) {
-		cashierDao.deleteById(cashierId);
+	public Map<String, Object> deleteCashier(String cashierId) {
+
+		Map<String, Object> response = new LinkedHashMap<>();
+
+		try {
+			if (cashierDao.existsById(cashierId)) {
+				cashierDao.deleteById(cashierId);
+				response.put("message", "Cashier with ID : " + cashierId + " has been deleted.");
+				response.put("success", true);
+			} else {
+				response.put("message", "Cashier with ID : " + cashierId + " is not exist.");
+				response.put("success", false);
+			}
+			return response;
+		} catch (Exception e) {
+			response.put("message", "Cashier with ID : " + cashierId + " deletion is failed.");
+			response.put("success", false);
+			return response;
+		}
 	}
 
 	@Override
-	public ResponseEntity<String> viewSalesHistory(String cashierId) {
+	public Map<String, Object> viewSalesHistory(String cashierId) {
+
+		Map<String, Object> response = new LinkedHashMap<>();
+
 		try {
 			// Fetch purchase details
 			List<Object[]> purchaseDetails = cashierDao.getCashierPurchaseDetails(cashierId);
@@ -96,14 +202,13 @@ public class CashierServiceImpl implements CashierService {
 
 			// Construct the final response string
 			String jsonResponse = jsonArray.toString();
-			return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
-
-		} catch (NumberFormatException e) {
-			// Handle the case where cashierId is not a valid integer
-			return new ResponseEntity<>("Invalid cashierId", HttpStatus.BAD_REQUEST);
-
-		} catch (Exception e) {
-			return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+			response.put("message", "Cashier with ID : " + cashierId + " has been deleted.");
+			response.put("success", true);
+			return response;
+		}  catch (Exception e) {
+			response.put("message", "Cashier with ID : " + cashierId + " has been deleted.");
+			response.put("success", false);
+			return response;
 		}
 	}
 }
