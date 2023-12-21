@@ -15,27 +15,33 @@ import com.CBSEGroup11pos.entity.Cashier;
 
 @RequestMapping(path = "/cashier")
 public interface CashierRest {
-	
+
 	// Manage Cashier
 
 	@GetMapping(path = "/")
-	ResponseEntity<Map<String, Object>> getAllCashier ();
-	
+	ResponseEntity<Map<String, Object>> getAllCashier();
+
 	@GetMapping(path = "/{cashierId}")
-	ResponseEntity<Map<String, Object>> getCashier (@PathVariable String cashierId);
-	
+	ResponseEntity<Map<String, Object>> getCashier(@PathVariable String cashierId);
+
 	@PostMapping(path = "/addCashier")
 	ResponseEntity<Map<String, Object>> addCashier(@RequestBody Map<String, String> requestMap);
-	
+
 	@PutMapping(path = "/{cashierId}")
-	ResponseEntity<Map<String, Object>> updateCashier(@PathVariable String cashierId, @RequestBody Map<String, String> requestMap);
-	
+	ResponseEntity<Map<String, Object>> updateCashier(@PathVariable String cashierId,
+			@RequestBody Map<String, String> requestMap);
+
 	@DeleteMapping(path = "/{cashierId}")
 	ResponseEntity<Map<String, Object>> deleteCashier(@PathVariable String cashierId);
-	
+
 	// View Sales History
-	
+
 	@GetMapping(path = "/{cashierId}/sales-history")
-	ResponseEntity<Map<String, Object>> viewSalesHistory (@PathVariable String cashierId);
+	ResponseEntity<Map<String, Object>> viewSalesHistory(@PathVariable String cashierId);
+
+	// View Amount of Transaction Graph
+
+	@GetMapping(path = "/{cashierId}/transaction-graph")
+	ResponseEntity<Map<String, Object>> viewTransactionGraph(@PathVariable String cashierId);
 
 }

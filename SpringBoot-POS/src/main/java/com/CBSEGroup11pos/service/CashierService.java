@@ -19,4 +19,6 @@ public interface CashierService {
 
 	Map<String, Object> viewSalesHistory(String cashierId);
 
+	Map<String, Object> viewTransactionGraph(String cashierId);
+
 }

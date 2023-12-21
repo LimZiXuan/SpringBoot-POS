@@ -3,6 +3,8 @@ package com.CBSEGroup11pos.serviceImpl;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -231,13 +233,20 @@ public class CashierServiceImpl implements CashierService {
 						// Convert the result back to String
 						String totalAmount = resultDecimal.toString();
 
-						SalesHistoryItem salesHistoryItem = new SalesHistoryItem(barcode, pi.getName(),
-								purchase.getDate(), quantity, totalAmount);
+						SalesHistoryItem salesHistoryItem = new SalesHistoryItem(Integer.toString(purchase.getId()),
+								barcode, pi.getName(), purchase.getDate(), quantity, totalAmount);
 
 						// Add the SalesHistoryItem to the list
 						salesHistoryItems.add(salesHistoryItem);
 					}
 				}
+				
+				// Create a custom comparator based on the date field
+				Comparator<SalesHistoryItem> dateComparator = Comparator.comparing(SalesHistoryItem::getDate);
+
+				// Sort the list in descending order using the custom comparator
+				Collections.sort(salesHistoryItems, dateComparator.reversed());
+				
 				response.put("message", "Sales History for Cashier with ID : " + cashierId + " has been retrieved.");
 				response.put("success", true);
 				response.put("data", salesHistoryItems);
@@ -252,5 +261,11 @@ public class CashierServiceImpl implements CashierService {
 			response.put("success", false);
 			return response;
 		}
+	}
+
+	@Override
+	public Map<String, Object> viewTransactionGraph(String cashierId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

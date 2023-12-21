@@ -67,4 +67,12 @@ public class CashierRestImpl implements CashierRest {
 		return new ResponseEntity<>(response, status);
 	}
 
+	@Override
+	public ResponseEntity<Map<String, Object>> viewTransactionGraph(String cashierId) {
+		
+		Map<String, Object> response = cashierService.viewTransactionGraph(cashierId);
+		HttpStatus status = (boolean) response.get("success") ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+		return new ResponseEntity<>(response, status);
+	}
+
 }
