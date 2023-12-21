@@ -17,7 +17,7 @@ public class CashierRestImpl implements CashierRest {
 
 	@Autowired
 	private CashierService cashierService;
-	
+
 	@Override
 	public ResponseEntity<Map<String, Object>> getAllCashier() {
 
@@ -53,7 +53,7 @@ public class CashierRestImpl implements CashierRest {
 
 	@Override
 	public ResponseEntity<Map<String, Object>> deleteCashier(String cashierId) {
-		
+
 		Map<String, Object> response = cashierService.deleteCashier(cashierId);
 		HttpStatus status = (boolean) response.get("success") ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
 		return new ResponseEntity<>(response, status);
@@ -61,15 +61,10 @@ public class CashierRestImpl implements CashierRest {
 
 	@Override
 	public ResponseEntity<Map<String, Object>> viewSalesHistory(String cashierId) {
-		Map<String, Object> response = new LinkedHashMap<>();
-		try {
-			cashierService.viewSalesHistory(cashierId);
-			response.put("message", "Cashier with ID : " + cashierId + " has been deleted.");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
-		} catch (Exception e) {
-			response.put("message", "Cashier with ID : " + cashierId + " deletion is failed.");
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
+
+		Map<String, Object> response = cashierService.viewSalesHistory(cashierId);
+		HttpStatus status = (boolean) response.get("success") ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
+		return new ResponseEntity<>(response, status);
 	}
 
 }

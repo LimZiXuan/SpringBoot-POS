@@ -1,5 +1,6 @@
 package com.CBSEGroup11pos.serviceImpl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -13,7 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.CBSEGroup11pos.dao.CashierDao;
+import com.CBSEGroup11pos.dao.ProductItemDao;
+import com.CBSEGroup11pos.dao.PurchaseDao;
+import com.CBSEGroup11pos.dto.SalesHistoryItem;
 import com.CBSEGroup11pos.entity.Cashier;
+import com.CBSEGroup11pos.entity.ProductItems;
+import com.CBSEGroup11pos.entity.Purchase;
 import com.CBSEGroup11pos.service.CashierService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -26,6 +32,12 @@ public class CashierServiceImpl implements CashierService {
 
 	@Autowired
 	CashierDao cashierDao;
+
+	@Autowired
+	PurchaseDao purchaseDao;
+
+	@Autowired
+	ProductItemDao productItemDao;
 
 	@Override
 	public Map<String, Object> getAllCashier() {
@@ -188,43 +200,55 @@ public class CashierServiceImpl implements CashierService {
 		Map<String, Object> response = new LinkedHashMap<>();
 
 		try {
-			// Fetch purchase details
-			List<Object[]> purchaseDetails = cashierDao.getCashierPurchaseDetails(cashierId);
 
-			// Log the purchase details to console for debugging
-			System.out.println("Purchase Details:");
-			for (Object[] row : purchaseDetails) {
-				if (row != null) {
-					System.out.println(Arrays.toString(row));
-				} else {
-					System.out.println("It's null");
+			if (cashierDao.existsById(cashierId)) {
+				// Fetch purchase details
+				List<Purchase> purchaseDetails = purchaseDao.findByCashierId(Integer.valueOf(cashierId));
+
+				// Create a list to store SalesHistoryItem objects
+				List<SalesHistoryItem> salesHistoryItems = new ArrayList<>();
+
+				// Iterate through each Purchase object
+				for (Purchase purchase : purchaseDetails) {
+					// Split the barcode string into individual barcodes
+					String[] barcodes = purchase.getBarcode().split(",");
+					String[] quantities = purchase.getQuantity().split(",");
+
+					// Iterate through each barcode and quantity
+					for (int i = 0; i < barcodes.length; i++) {
+						String barcode = barcodes[i].trim();
+						String quantity = quantities[i].trim();
+
+						ProductItems pi = productItemDao.findByBarcode(barcode);
+
+						// Convert String values to BigDecimal
+						BigDecimal price = new BigDecimal(pi.getPrice());
+						BigDecimal quantityDecimal = new BigDecimal(quantity);
+
+						// Multiply the values
+						BigDecimal resultDecimal = price.multiply(quantityDecimal);
+
+						// Convert the result back to String
+						String totalAmount = resultDecimal.toString();
+
+						SalesHistoryItem salesHistoryItem = new SalesHistoryItem(barcode, pi.getName(),
+								purchase.getDate(), quantity, totalAmount);
+
+						// Add the SalesHistoryItem to the list
+						salesHistoryItems.add(salesHistoryItem);
+					}
 				}
+				response.put("message", "Sales History for Cashier with ID : " + cashierId + " has been retrieved.");
+				response.put("success", true);
+				response.put("data", salesHistoryItems);
+			} else {
+				response.put("message", "Cashier with ID : " + cashierId + " is not exist.");
+				response.put("success", false);
 			}
 
-			// Process and construct JSON response
-			List<ObjectNode> jsonList = new ArrayList<>();
-			ObjectMapper objectMapper = new ObjectMapper();
-
-			for (Object[] row : purchaseDetails) {
-				ObjectNode json = objectMapper.createObjectNode();
-				json.put("barcode", (String) row[0]);
-				json.put("productName", (String) row[1]);
-				json.put("purchaseDate", (String) row[2]);
-				json.put("quantity", (String) row[3]);
-				json.put("totalAmount", (String) row[4]);
-				jsonList.add(json);
-			}
-
-			// Convert the list of JSON objects to a JSON array
-			ArrayNode jsonArray = objectMapper.valueToTree(jsonList);
-
-			// Construct the final response string
-			String jsonResponse = jsonArray.toString();
-			response.put("message", "Cashier with ID : " + cashierId + " has been deleted.");
-			response.put("success", true);
 			return response;
 		} catch (Exception e) {
-			response.put("message", "Cashier with ID : " + cashierId + " has been deleted.");
+			response.put("message", "Sales History for Cashier with ID : " + cashierId + " is failed to retrieve.");
 			response.put("success", false);
 			return response;
 		}
