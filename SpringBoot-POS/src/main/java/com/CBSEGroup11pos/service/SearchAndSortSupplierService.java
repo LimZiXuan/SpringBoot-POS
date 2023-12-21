@@ -6,5 +6,11 @@ import com.CBSEGroup11pos.wrapper.SearchSupplierWrapper;
 
 public interface SearchAndSortSupplierService {
 
-	List<Object[]> searchByCompany(Integer company);
+	List<SearchSupplierWrapper> searchByCompany(String companyName);
+
+	List<SearchSupplierWrapper> searchByProduct(String productName);
+
+	List<SearchSupplierWrapper> searchByCategory(String productCategory);
+
+	List<SearchSupplierWrapper> sortSupplierByField(String field, String order, List<SearchSupplierWrapper> request);
 }

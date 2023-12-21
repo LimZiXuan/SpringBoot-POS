@@ -23,7 +23,7 @@ public class ManageSupplierServiceImpl implements ManageSupplierService {
 
 	@Override
 	public List<SupplierWrapper> findAll() {
-		List<SupplierWrapper> allSuppliers = new ArrayList<>();
+		List<SupplierWrapper> allSuppliers = new ArrayList<SupplierWrapper>();
 		List<Supplier> entitySuppliers = supplierDao.findAll();
 		for (Supplier data : entitySuppliers) {
 			allSuppliers.add(supplierTransformer.transformEntityToObj(data));
