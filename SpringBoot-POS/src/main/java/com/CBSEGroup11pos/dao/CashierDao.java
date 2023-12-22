@@ -8,6 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 import com.CBSEGroup11pos.entity.Cashier;
 
-public interface CashierDao extends JpaRepository<Cashier, String>{
+public interface CashierDao extends JpaRepository<Cashier, Integer>{
 	
 }

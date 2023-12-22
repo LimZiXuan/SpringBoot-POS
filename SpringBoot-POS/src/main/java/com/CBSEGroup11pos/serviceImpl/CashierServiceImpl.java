@@ -78,7 +78,7 @@ public class CashierServiceImpl implements CashierService {
 
 		try {
 			// Business Logic here
-			Optional<Cashier> optional = cashierDao.findById(cashierId);
+			Optional<Cashier> optional = cashierDao.findById(Integer.valueOf(cashierId));
 
 			if (optional.isPresent()) {
 				Cashier fetchedCashier = optional.get();
@@ -150,7 +150,7 @@ public class CashierServiceImpl implements CashierService {
 		Map<String, Object> response = new LinkedHashMap<>();
 
 		try {
-			Optional<Cashier> optional = cashierDao.findById(cashierId);
+			Optional<Cashier> optional = cashierDao.findById(Integer.valueOf(cashierId));
 
 			if (optional.isPresent()) {
 				Cashier existingCashier = optional.get();
@@ -199,8 +199,8 @@ public class CashierServiceImpl implements CashierService {
 		Map<String, Object> response = new LinkedHashMap<>();
 
 		try {
-			if (cashierDao.existsById(cashierId)) {
-				cashierDao.deleteById(cashierId);
+			if (cashierDao.existsById(Integer.valueOf(cashierId))) {
+				cashierDao.deleteById(Integer.valueOf(cashierId));
 				response.put("message", "Cashier with ID : " + cashierId + " has been deleted.");
 				response.put("success", true);
 			} else {
@@ -222,7 +222,7 @@ public class CashierServiceImpl implements CashierService {
 
 		try {
 
-			if (cashierDao.existsById(cashierId)) {
+			if (cashierDao.existsById(Integer.valueOf(cashierId))) {
 				// Fetch purchase details
 				List<Purchase> purchaseDetails = purchaseDao.findByCashierId(Integer.valueOf(cashierId));
 
@@ -289,7 +289,7 @@ public class CashierServiceImpl implements CashierService {
 		try {
 			// Check if the cashier exists (this part may need modification based on your
 			// logic)
-			if (cashierDao.existsById(cashierId)) {
+			if (cashierDao.existsById(Integer.valueOf(cashierId))) {
 
 				List<Purchase> purchaseDetails = purchaseDao.findByCashierId(Integer.valueOf(cashierId));
 
