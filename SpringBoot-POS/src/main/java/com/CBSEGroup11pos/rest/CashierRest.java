@@ -42,6 +42,6 @@ public interface CashierRest {
 	// View Amount of Transaction Graph
 
 	@GetMapping(path = "/{cashierId}/transaction-graph")
-	ResponseEntity<Map<String, Object>> viewTransactionGraph(@PathVariable String cashierId);
+	ResponseEntity<byte[]> viewTransactionGraph(@PathVariable String cashierId);
 
 }

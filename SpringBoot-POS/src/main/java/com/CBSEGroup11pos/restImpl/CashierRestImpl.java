@@ -4,7 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -68,11 +70,20 @@ public class CashierRestImpl implements CashierRest {
 	}
 
 	@Override
-	public ResponseEntity<Map<String, Object>> viewTransactionGraph(String cashierId) {
+	public ResponseEntity<byte[]> viewTransactionGraph(String cashierId) {
 		
 		Map<String, Object> response = cashierService.viewTransactionGraph(cashierId);
-		HttpStatus status = (boolean) response.get("success") ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR;
-		return new ResponseEntity<>(response, status);
+	    
+	    if ((boolean) response.get("success")) {
+	        byte[] chartImage = (byte[]) response.get("chartImage");
+	        
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setContentType(MediaType.IMAGE_PNG); // Set the appropriate content type
+	        
+	        return new ResponseEntity<>(chartImage, headers, HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
 	}
 
 }
