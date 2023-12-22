@@ -71,19 +71,19 @@ public class CashierRestImpl implements CashierRest {
 
 	@Override
 	public ResponseEntity<byte[]> viewTransactionGraph(String cashierId) {
-		
+
 		Map<String, Object> response = cashierService.viewTransactionGraph(cashierId);
-	    
-	    if ((boolean) response.get("success")) {
-	        byte[] chartImage = (byte[]) response.get("chartImage");
-	        
-	        HttpHeaders headers = new HttpHeaders();
-	        headers.setContentType(MediaType.IMAGE_PNG); // Set the appropriate content type
-	        
-	        return new ResponseEntity<>(chartImage, headers, HttpStatus.OK);
-	    } else {
-	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
+
+		if ((boolean) response.get("success")) {
+			byte[] chartImage = (byte[]) response.get("chartImage");
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_PNG); // Set the appropriate content type
+
+			return new ResponseEntity<>(chartImage, headers, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }

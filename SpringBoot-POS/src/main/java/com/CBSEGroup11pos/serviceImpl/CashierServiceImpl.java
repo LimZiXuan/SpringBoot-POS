@@ -112,13 +112,13 @@ public class CashierServiceImpl implements CashierService {
 			String phone = requestMap.get("phone");
 			String email = requestMap.get("email");
 			String password = requestMap.get("password");
-			
-			// Get the current date and time
-	        LocalDateTime now = LocalDateTime.now();
 
-	        // Format the current date and time to "dd/MM/yyyy" format
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	        String dateCreated = now.format(formatter);
+			// Get the current date and time
+			LocalDateTime now = LocalDateTime.now();
+
+			// Format the current date and time to "dd/MM/yyyy" format
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			String dateCreated = now.format(formatter);
 
 			// Creating a Cashier object
 			Cashier cashier = new Cashier();
