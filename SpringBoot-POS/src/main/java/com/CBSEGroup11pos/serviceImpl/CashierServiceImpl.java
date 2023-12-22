@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -110,7 +112,13 @@ public class CashierServiceImpl implements CashierService {
 			String phone = requestMap.get("phone");
 			String email = requestMap.get("email");
 			String password = requestMap.get("password");
-			String dateCreated = requestMap.get("datecreated");
+			
+			// Get the current date and time
+	        LocalDateTime now = LocalDateTime.now();
+
+	        // Format the current date and time to "dd/MM/yyyy" format
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	        String dateCreated = now.format(formatter);
 
 			// Creating a Cashier object
 			Cashier cashier = new Cashier();
