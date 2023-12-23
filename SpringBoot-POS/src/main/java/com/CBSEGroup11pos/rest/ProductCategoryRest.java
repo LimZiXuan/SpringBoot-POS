@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RequestMapping(path = "/product/category")
 public interface ProductCategoryRest {
-
 	@GetMapping
 	ResponseEntity<Map<String, Object>> getAllCategory();
 

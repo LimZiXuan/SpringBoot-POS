@@ -15,11 +15,11 @@ import com.CBSEGroup11pos.entity.ProductCategory;
 import com.CBSEGroup11pos.service.ProductCategoryService;
 
 @Service
-public class ProductCategoryServiceImpl implements ProductCategoryService{
-	
+public class ProductCategoryServiceImpl implements ProductCategoryService {
+
 	@Autowired
 	ProductCategoryDao productCategoryDao;
-	
+
 	@Override
 	public Map<String, Object> getAllCategory() {
 		Map<String, Object> response = new LinkedHashMap<>();
