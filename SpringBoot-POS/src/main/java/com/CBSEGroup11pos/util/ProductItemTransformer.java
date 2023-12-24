@@ -24,7 +24,6 @@ public class ProductItemTransformer {
 	
 	public ProductItems transformObjToEntity(ProductItemWrapper obj) {
 		ProductItems entity = new ProductItems();
-		entity.setBarcode(obj.getBarcode());
 		entity.setCategoryId(obj.getCategoryId());
 		entity.setCount(obj.getCount());
 		entity.setDateAdded(obj.getDateAdded());

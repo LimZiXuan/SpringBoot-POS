@@ -10,7 +10,6 @@ import jakarta.persistence.Table;
 
 @NamedQuery(name = "ProductItems.findProductByCategory",query = "SELECT p.name, p.dateAdded, p.expiredDate, p.price, s.companyName, p.stockAmount, p.count, p.barcode "
 + "From ProductItems p INNER JOIN Supplier s ON " + "p.supplierId = s.id WHERE p.categoryId = :categoryId")
-
 @Entity
 @Table(name = "productitems")
 public class ProductItems {
