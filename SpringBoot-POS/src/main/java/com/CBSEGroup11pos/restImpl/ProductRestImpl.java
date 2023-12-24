@@ -1,8 +1,13 @@
 package com.CBSEGroup11pos.restImpl;
 
+
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,6 +50,22 @@ public class ProductRestImpl implements ProductRest {
 	@Override
 	public ResponseEntity<List<ProductByCategoryWrapper>> findProductByCategory(String categoryName){
 		return ResponseEntity.ok(productService.findProductByCategory(categoryName));
+	}
+	
+	@Override
+	public ResponseEntity<byte[]> getProductQRCode(String barcode) {
+		Map<String, Object> response = productService.getProductQRCode(barcode);
+
+		if ((boolean) response.get("success")) {
+			byte[] QRImage = (byte[]) response.get("QRImage");
+
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_PNG); // Set the appropriate content type
+
+			return new ResponseEntity<>(QRImage, headers, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 

@@ -34,4 +34,7 @@ public interface ProductRest {
 	
 	@GetMapping(path= "/findByCategory/{categoryName}")
 	ResponseEntity<List<ProductByCategoryWrapper>> findProductByCategory(@PathVariable String categoryName);
+	
+	@GetMapping(path = "/{barcode}/QRCode")
+	ResponseEntity<byte[]> getProductQRCode(@PathVariable String barcode);
 }
