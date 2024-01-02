@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
 import com.CBSEGroup11pos.entity.ProductItems;
-import com.CBSEGroup11pos.wrapper.SearchSupplierWrapper;
 
-public interface ProductItemsDao extends JpaRepository<ProductItems, String> {
+public interface ProductItemDao extends JpaRepository<ProductItems, String> {
+	ProductItems findByBarcode(String barcode);
 
 	List<Object[]> findSupplierByProduct(@Param("name") String name);
 }

@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.CBSEGroup11pos.dao.ProductCategoryDao;
-import com.CBSEGroup11pos.dao.ProductItemsDao;
+import com.CBSEGroup11pos.dao.ProductItemDao;
 import com.CBSEGroup11pos.dao.SupplierDao;
 import com.CBSEGroup11pos.entity.Supplier;
 import com.CBSEGroup11pos.service.SearchAndSortSupplierService;
@@ -19,7 +19,7 @@ import com.CBSEGroup11pos.wrapper.SearchSupplierWrapper;
 public class SearchAndSortSupplierServiceImpl implements SearchAndSortSupplierService {
 
 	@Autowired
-	private ProductItemsDao productItemDao;
+	private ProductItemDao productItemDao;
 
 	@Autowired
 	private SupplierDao supplierDao;
