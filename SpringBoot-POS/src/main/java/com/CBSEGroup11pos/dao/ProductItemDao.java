@@ -10,4 +10,6 @@ import com.CBSEGroup11pos.entity.ProductItems;
 public interface ProductItemDao extends JpaRepository<ProductItems, String> {
 	ProductItems findByBarcode(String barcode);
 	List<Object[]> findProductByCategory(@Param("categoryId") Integer categoryId);
+
+	List<Object[]> findSupplierByProduct(@Param("name") String name);
 }

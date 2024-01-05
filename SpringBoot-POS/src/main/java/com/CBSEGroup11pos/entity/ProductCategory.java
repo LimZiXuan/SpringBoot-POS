@@ -5,7 +5,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+
+@NamedQuery(name = "ProductCategory.findSupplierByCategory", query = "SELECT s.id, s.companyName, p.name, c.name, s.lastDateSupplied "
+		+ "FROM ProductItems p INNER JOIN Supplier s ON " + "p.supplierId = s.id INNER JOIN ProductCategory c ON "
+		+ "p.categoryId = c.id WHERE c.id = :categoryId")
 
 @Entity
 @Table(name = "productcategory")

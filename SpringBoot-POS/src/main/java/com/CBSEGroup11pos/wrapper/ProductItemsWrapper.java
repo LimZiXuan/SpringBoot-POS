@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductWrapper {
-	
+public class ProductItemsWrapper {
+
 	private Integer id;
-	
+
 	private String name;
 }

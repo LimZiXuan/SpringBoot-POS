@@ -8,8 +8,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
+
 @NamedQuery(name = "ProductItems.findProductByCategory",query = "SELECT p.name, p.dateAdded, p.expiredDate, p.price, s.companyName, p.stockAmount, p.count, p.barcode "
 + "From ProductItems p INNER JOIN Supplier s ON " + "p.supplierId = s.id WHERE p.categoryId = :categoryId")
+@NamedQuery(name = "ProductItems.findSupplierByProduct", query = "SELECT s.id, s.companyName, p.name, c.name, s.lastDateSupplied "
+		+ "FROM ProductItems p INNER JOIN Supplier s ON " + "p.supplierId = s.id INNER JOIN ProductCategory c ON "
+		+ "p.categoryId = c.id WHERE p.name = :name")
 @Entity
 @Table(name = "productitems")
 public class ProductItems {
