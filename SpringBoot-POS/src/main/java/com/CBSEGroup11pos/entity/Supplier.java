@@ -2,16 +2,18 @@ package com.CBSEGroup11pos.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+
+@NamedQuery(name = "Supplier.findSupplierByCompany", query = "SELECT s.id, s.companyName, p.name, c.name, s.lastDateSupplied "
+		+ "FROM ProductItems p INNER JOIN Supplier s ON " + "p.supplierId = s.id INNER JOIN ProductCategory c ON "
+		+ "p.categoryId = c.id WHERE p.supplierId = :supplierid")
 
 @Entity
 @Table(name = "supplier")
 public class Supplier {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 
@@ -29,20 +31,20 @@ public class Supplier {
 		this.id = id;
 	}
 
-	public String getCompanyname() {
+	public String getCompanyName() {
 		return companyName;
 	}
 
-	public void setCompanyname(String companyname) {
-		this.companyName = companyname;
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
-	public String getLastdatesupplied() {
+	public String getLastDateSupplied() {
 		return lastDateSupplied;
 	}
 
-	public void setLastdatesupplied(String lastdatesupplied) {
-		this.lastDateSupplied = lastdatesupplied;
+	public void setLastDateSupplied(String lastDateSupplied) {
+		this.lastDateSupplied = lastDateSupplied;
 	}
 
 }
