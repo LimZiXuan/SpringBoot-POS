@@ -10,6 +10,7 @@ import org.hibernate.annotations.NaturalId;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "user")
 public class User {
 
     @Id
