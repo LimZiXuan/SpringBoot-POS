@@ -8,11 +8,12 @@ import com.CBSEGroup11pos.wrapper.CustomerWrapper;
 public interface CustomerService {
     List<CustomerWrapper> findAll();
 
-    // Customer getCustomerById(String id);
+    CustomerWrapper getCustomerById(Integer id);
 
-    // Customer addCustomer(Customer customer);
+    CustomerWrapper addCustomer(CustomerWrapper customer);
 
-    // Customer updateCustomer(String id, Customer updatedCustomer);
+    CustomerWrapper updateCustomer(Integer id, CustomerWrapper updatedCustomer);
 
-    // void deleteCustomer(String id);
+    String deleteCustomer(Integer id);
+
 }
