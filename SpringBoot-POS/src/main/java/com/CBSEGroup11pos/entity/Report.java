@@ -5,6 +5,10 @@ import lombok.Data;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+@NamedQuery(name = "Report.getAllReports", query = "select r from Report r order by r.id desc")
+
+@NamedQuery(name = "Report.getReportByUserName", query = "select r from Report r where r.createdBy=:username order by r.id desc")
+
 @Entity
 @Data
 @DynamicInsert
@@ -22,6 +26,8 @@ public class Report {
     private String name;
     @Column(name = "email")
     private String email;
+    @Column(name = "reportType")
+    private String reportType;
     @Column(name = "createdby")
     private String createdBy;
 }
