@@ -14,5 +14,5 @@ public interface ProductCategoryDao extends JpaRepository<ProductCategory, Integ
 	List<ProductCategory> findByName(String name);
 	List<Object[]> findSupplierByCategory(@Param("categoryId") Integer categoryId);
 	List<String> getCategoryNameList();
-	List<ProductInfoWrapper> getProductCategoryPrice(@Param("barcode")String barcode);
+	Object[] getProductCategoryPrice(@Param("barcode")String barcode);
 }

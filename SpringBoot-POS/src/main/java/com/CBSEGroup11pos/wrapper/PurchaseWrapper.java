@@ -15,9 +15,4 @@ public class PurchaseWrapper {
     String barcode;
     String quantity;
     String totalAmount;
-
-    public PurchaseWrapper(String barcode, String quantity) {
-        this.barcode = barcode;
-        this.quantity = quantity;
-    }
 }

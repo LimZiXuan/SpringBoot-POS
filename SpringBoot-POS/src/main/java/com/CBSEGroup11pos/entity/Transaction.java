@@ -3,7 +3,7 @@ package com.CBSEGroup11pos.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@NamedQuery(name = "Transaction.getTotalDailyTransaction", query = "SELECT COUNT(*) FROM Transaction t JOIN Purchase p ON t.purchaseId = p.id WHERE p.date=:currentDate")
+@NamedQuery(name = "Transaction.getTotalDailyTransaction", query = "SELECT COUNT(*) FROM Transaction t JOIN Purchase p ON t.purchaseId=p.id WHERE p.date=:currentDate")
 
 @Entity
 @Data
@@ -21,7 +21,7 @@ public class Transaction {
 	private String cardId;
 
 	@Column(name = "purchaseid")
-	private String purchaseId;
+	private Integer purchaseId;
 
 	@Column(name = "amount")
 	private String amount;

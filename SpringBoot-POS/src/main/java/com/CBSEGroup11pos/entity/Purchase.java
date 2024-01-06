@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @NamedQuery(name = "Purchase.getTotalDailySaleItemCount", query = "SELECT quantity FROM Purchase p WHERE p.date=:currentDate")
 
-@NamedQuery(name = "Purchase.getTotalDailyPurchase", query = "SELECT COUNT(*) FROM `Purchase p WHERE p.date=:currentDate")
+@NamedQuery(name = "Purchase.getTotalDailyPurchase", query = "SELECT COUNT(*) FROM Purchase p WHERE p.date=:currentDate")
 
 @NamedQuery(name = "Purchase.getPurchaseBarcodeCategoryName", query = "SELECT new com.CBSEGroup11pos.wrapper.PurchaseWrapper(p.barcode, p.quantity) FROM Purchase p WHERE p.date=:currentDate")
 

@@ -122,9 +122,9 @@ public class ReportServiceImpl implements ReportService {
                     quantityList.add(Integer.valueOf(purchaseBarcodeQuantity.get(i).getQuantity()));
                 }
 
-                List<ProductInfoWrapper> productCategoryPrice = new ArrayList<>();
+                List<Object[]> productCategoryPrice = new ArrayList<>();
                 for (int i = 0; i < barcodeList.size(); i++) {
-                    productCategoryPrice = productCategoryDao.getProductCategoryPrice(barcodeList.get(i));
+                    productCategoryPrice.add(productCategoryDao.getProductCategoryPrice(barcodeList.get(i)));
                 }
                 log.info(productCategoryPrice.toString());
 

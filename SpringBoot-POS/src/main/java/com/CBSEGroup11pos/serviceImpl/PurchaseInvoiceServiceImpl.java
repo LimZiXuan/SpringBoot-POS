@@ -1,27 +1,13 @@
 package com.CBSEGroup11pos.serviceImpl;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
-import javax.activation.DataHandler;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.mail.util.ByteArrayDataSource;
-
+import jakarta.mail.internet.MimeMessage;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import lombok.RequiredArgsConstructor;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -29,6 +15,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import com.CBSEGroup11pos.dao.ProductItemDao;
 import com.CBSEGroup11pos.dao.PurchaseDao;
@@ -36,16 +23,19 @@ import com.CBSEGroup11pos.entity.ProductItems;
 import com.CBSEGroup11pos.entity.Purchase;
 import com.CBSEGroup11pos.service.PurchaseInvoiceService;
 
+@RequiredArgsConstructor
 @Service
 public class PurchaseInvoiceServiceImpl implements PurchaseInvoiceService {
-	
+
+    private final JavaMailSender mailSender;
+
 	@Autowired
 	private PurchaseDao purchaseDao;
 
 	@Autowired
 	private ProductItemDao productItemDao;
-	
-	@Override
+
+    @Override
 	public Map<String, Object> genereteInvoice(Integer purchaseId) {
         Map<String, Object> response = new LinkedHashMap<>();
         try {
@@ -251,44 +241,19 @@ public class PurchaseInvoiceServiceImpl implements PurchaseInvoiceService {
             return response;
         }
 	}
-	
-	
+
 	public void sendEmail(byte[] pdf) {
-        String from = "cbse0633@gmail.com";
-        String password_sender = "mrqv nnuy qmvi prol";
-        String host = "smtp.gmail.com";
-        String to = "17215717@siswa.um.edu.my";
-        
-        Properties properties = System.getProperties();
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.auth", "true");
-
-        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() { 
-                return new PasswordAuthentication(from, password_sender); 
-            }
-        });
-        session.setDebug(true);
- 
         try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("Invoice");
-            
-            MimeMultipart multipart = new MimeMultipart();
-            MimeBodyPart attachment= new MimeBodyPart();
-            ByteArrayDataSource ds = new ByteArrayDataSource(pdf, "application/pdf"); 
-            attachment.setDataHandler(new DataHandler(ds));
-            attachment.setFileName("Invoice.pdf");
-            multipart.addBodyPart(attachment);
-            message.setContent(multipart);
-
-            Transport.send(message);
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper messageHelper = new MimeMessageHelper(message, true);
+            messageHelper.setFrom("stargazing0610@gmail.com", "Invoice Service");
+            messageHelper.setTo("17215717@siswa.um.edu.my");
+            messageHelper.setSubject("Invoice");
+            messageHelper.setText("Invoice PDF File can found attached to this email.", true);
+            messageHelper.addAttachment("Invoice.pdf", new ByteArrayResource(pdf),"application/pdf");
+            mailSender.send(message);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 	}
 	

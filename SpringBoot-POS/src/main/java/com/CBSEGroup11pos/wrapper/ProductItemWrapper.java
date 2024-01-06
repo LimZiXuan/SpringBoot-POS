@@ -1,49 +1,14 @@
-package com.CBSEGroup11pos.entity;
+package com.CBSEGroup11pos.wrapper;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
-import jakarta.persistence.Table;
-
-
-@NamedQuery(name = "ProductItems.findProductByCategory",query = "SELECT p.name, p.dateAdded, p.expiredDate, p.price, s.companyName, p.stockAmount, p.count, p.barcode "
-+ "From ProductItems p INNER JOIN Supplier s ON " + "p.supplierId = s.id WHERE p.categoryId = :categoryId")
-@NamedQuery(name = "ProductItems.findSupplierByProduct", query = "SELECT s.id, s.companyName, p.name, c.name, s.lastDateSupplied "
-		+ "FROM ProductItems p INNER JOIN Supplier s ON " + "p.supplierId = s.id INNER JOIN ProductCategory c ON "
-		+ "p.categoryId = c.id WHERE p.name = :name")
-@Entity
-@Table(name = "productitems")
-public class ProductItems {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "barcode")
+public class ProductItemWrapper {
 	private String barcode;
-
-	@Column(name = "name")
 	private String name;
-
-	@Column(name = "categoryid")
 	private Integer categoryId;
-
-	@Column(name = "dateadded")
 	private String dateAdded;
-
-	@Column(name = "expireddate")
 	private String expiredDate;
-
-	@Column(name = "price")
 	private String price;
-
-	@Column(name = "supplierid")
 	private Integer supplierId;
-
-	@Column(name = "stockamount")
 	private String stockAmount;
-
-	@Column(name = "count")
 	private Integer count;
 
 	public String getBarcode() {
