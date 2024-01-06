@@ -12,6 +12,10 @@ import jakarta.persistence.Table;
 		+ "FROM ProductItems p INNER JOIN Supplier s ON " + "p.supplierId = s.id INNER JOIN ProductCategory c ON "
 		+ "p.categoryId = c.id WHERE c.id = :categoryId")
 
+@NamedQuery(name = "ProductCategory.getCategoryNameList", query = "SELECT name FROM ProductCategory c")
+
+@NamedQuery(name = "ProductCategory.getProductCategoryPrice", query = "SELECT c.name, i.price FROM ProductCategory c INNER JOIN ProductItems i WHERE i.barcode=:barcode AND i.categoryId=c.id")
+
 @Entity
 @Table(name = "productcategory")
 public class ProductCategory {

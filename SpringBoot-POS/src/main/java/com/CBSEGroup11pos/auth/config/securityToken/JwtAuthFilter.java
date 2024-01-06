@@ -1,6 +1,7 @@
 package com.CBSEGroup11pos.auth.config.securityToken;
 
 import com.CBSEGroup11pos.auth.config.securityService.UserRegistrationDetailsService;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +23,8 @@ import java.io.IOException;
 public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtServiceImpl jwtService;
     private final UserRegistrationDetailsService userDetailsService;
+    Claims claims = null;
+    private String userName = null;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -50,5 +53,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
         }
         filterChain.doFilter(request, response);
+    }
+
+    public boolean isCashier() {
+        return "CASHIER".equalsIgnoreCase((String) claims.get("role"));
+    }
+
+    public boolean isCustomer() {
+        return "CUSTOMER".equalsIgnoreCase((String) claims.get("role"));
+    }
+
+    public String getCurrentUser() {
+        return userName;
     }
 }

@@ -12,7 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table
+@Table(name = "password-reset-token")
 public class PasswordResetToken {
 
     @Id

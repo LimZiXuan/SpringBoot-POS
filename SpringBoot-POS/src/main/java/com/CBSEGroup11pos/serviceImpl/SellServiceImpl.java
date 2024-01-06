@@ -117,10 +117,10 @@ public class SellServiceImpl implements SellService {
         // Update the total amount based on the purchased items and quantity from
         // newPurchase
         double totalAmount = calculateTotalAmount(purchasedItems, newPurchase);
-        newPurchase.setTotalamount(String.valueOf(totalAmount));
+        newPurchase.setTotalAmount(String.valueOf(totalAmount));
 
         Purchase entity = purchaseTransformer.transformObjToEntity(newPurchase);
-        entity.setTotalamount(newPurchase.getTotalamount());
+        entity.setTotalamount(newPurchase.getTotalAmount());
         purchaseDao.save(entity);
 
         return newPurchase;

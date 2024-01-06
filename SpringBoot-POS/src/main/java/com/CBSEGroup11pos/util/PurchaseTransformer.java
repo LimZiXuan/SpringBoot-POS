@@ -12,10 +12,10 @@ public class PurchaseTransformer {
         // obj.setId(entity.getId());
         obj.setDate(entity.getDate());
         obj.setTime(entity.getTime());
-        obj.setCashierid(entity.getCashierid());
+        obj.setCashierId(entity.getCashierid());
         obj.setBarcode(entity.getBarcode());
         obj.setQuantity(entity.getQuantity());
-        obj.setTotalamount(entity.getTotalamount());
+        obj.setTotalAmount(entity.getTotalamount());
 
         return obj;
     }
@@ -25,10 +25,10 @@ public class PurchaseTransformer {
         // entity.setId(obj.getId());
         entity.setDate(obj.getDate());
         entity.setTime(obj.getTime());
-        entity.setCashierid(obj.getCashierid());
+        entity.setCashierid(obj.getCashierId());
         entity.setBarcode(obj.getBarcode());
         entity.setQuantity(obj.getQuantity());
-        entity.setTotalamount(obj.getTotalamount());
+        entity.setTotalamount(obj.getTotalAmount());
 
         return entity;
     }

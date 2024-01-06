@@ -12,6 +12,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
+@Table(name = "verification-token")
 public class VerificationToken {
 
     @Id
