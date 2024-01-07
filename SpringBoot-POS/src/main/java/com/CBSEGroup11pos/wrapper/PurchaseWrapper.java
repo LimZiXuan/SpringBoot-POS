@@ -15,4 +15,6 @@ public class PurchaseWrapper {
     String barcode;
     String quantity;
     String totalAmount;
+    private double taxRate;
+    private double discount;
 }
