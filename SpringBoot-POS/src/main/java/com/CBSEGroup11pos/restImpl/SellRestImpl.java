@@ -52,4 +52,15 @@ public class SellRestImpl implements SellRest {
         return ResponseEntity.ok(sellService.payByCard(cardNumber, newCard));
     }
 
+    @Override
+    public ResponseEntity<Double> convertCurrency(
+            double amount,
+            String fromCurrency,
+            String toCurrency) {
+
+        double convertedAmount = sellService.convertCurrency(amount, fromCurrency, toCurrency);
+
+        return ResponseEntity.ok(convertedAmount);
+    }
+
 }
