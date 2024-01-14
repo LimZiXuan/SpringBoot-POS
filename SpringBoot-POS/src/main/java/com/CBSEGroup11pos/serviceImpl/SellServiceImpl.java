@@ -8,10 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import org.checkerframework.checker.units.qual.s;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.CBSEGroup11pos.dao.CardDao;
 import com.CBSEGroup11pos.dao.ProductCategoryDao;
@@ -215,4 +218,72 @@ public class SellServiceImpl implements SellService {
         return null;
     }
 
+    public double convertCurrency(double amount, String fromCurrency, String toCurrency) {
+        String apiUrl = "https://v6.exchangerate-api.com/v6/615d6d46aa6528aa44f113a1/latest/" +
+                fromCurrency;
+        System.out.println("apiUrl: " + apiUrl);
+        // Create a RestTemplate instance
+        RestTemplate restTemplate = new RestTemplate();
+        try {
+            // Make the API request to get the latest exchange rates
+            ResponseEntity<ExchangeRateApiResponse> responseEntity = restTemplate.getForEntity(apiUrl,
+                    ExchangeRateApiResponse.class);
+            System.out.println("responseEntity: " + responseEntity);
+            // Extract exchange rates from the response
+            ExchangeRateApiResponse exchangeRateApiResponse = responseEntity.getBody();
+            Map<String, Double> conversionRates = exchangeRateApiResponse.getConversion_rates();
+            String baseCode = exchangeRateApiResponse.getBase_code();
+            String result = exchangeRateApiResponse.getResult();
+            String timeNextUpdateUtc = exchangeRateApiResponse.getTime_next_update_utc();
+            System.out.println("timeNextUpdateUtc: " + timeNextUpdateUtc);
+            System.out.println("result: " + result);
+            System.out.println("baseCode: " + baseCode);
+            System.out.println("conversionRates: " + conversionRates);
+
+            // Extract the exchange rate for the target currency
+            Double exchangeRate = conversionRates.get(toCurrency);
+            System.out.println("exchangeRate: " + exchangeRate);
+            if (exchangeRate != null) {
+                // Perform the currency conversion
+                double convertedAmount = amount * exchangeRate;
+                return convertedAmount;
+            } else {
+                System.out.println("Conversion rate not available for the target currency.");
+            }
+        } catch (Exception e) {
+            // Handle exceptions appropriately (e.g., log or throw a custom exception)
+            System.out.println("Error converting currency: " + e.getMessage());
+        }
+
+        return 0.0; // Return 0.0 in case of an error
+    }
+
+    // Inner class representing the response structure from ExchangeRate-API
+    private static class ExchangeRateApiResponse {
+        private String base_code;
+        private String result;
+        private Map<String, Double> conversion_rates = new LinkedHashMap<String, Double>();
+        String time_next_update_utc;
+
+        public Map<String, Double> getConversion_rates() {
+            return conversion_rates; // Update the getter method
+        }
+
+        public void setConversionRates(Map<String, Double> conversionRates) {
+            this.conversion_rates = conversionRates; // Update the setter method
+        }
+
+        public String getBase_code() {
+            return base_code;
+        }
+
+        public String getResult() {
+            return result;
+        }
+
+        public String getTime_next_update_utc() {
+            return time_next_update_utc;
+        }
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.CBSEGroup11pos.rest;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -34,4 +35,9 @@ public interface SellRest {
     ResponseEntity<CardWrapper> payByCard(@RequestParam(required = true) String cardNumber,
             @RequestBody(required = true) CardWrapper newCard);
 
+    @GetMapping(path = "/convertCurrency/{amount}/{fromCurrency}/{toCurrency}")
+    ResponseEntity<Double> convertCurrency(
+            @PathVariable double amount,
+            @PathVariable String fromCurrency,
+            @PathVariable String toCurrency);
 }
