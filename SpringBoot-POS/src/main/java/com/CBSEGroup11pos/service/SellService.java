@@ -18,6 +18,6 @@ public interface SellService {
 
     CardWrapper payByCard(String cardNumber, CardWrapper newCard);
 
-    double convertCurrency(double amount, String fromCurrency, String toCurrency);
+    String convertCurrency(double amount, String fromCurrency, String toCurrency);
 
 }

@@ -1,25 +1,15 @@
 package com.CBSEGroup11pos.serviceImpl;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.CBSEGroup11pos.dao.CustomerDao;
-import com.CBSEGroup11pos.entity.Card;
 import com.CBSEGroup11pos.entity.Customer;
-import com.CBSEGroup11pos.entity.ProductItems;
-import com.CBSEGroup11pos.entity.Supplier;
 import com.CBSEGroup11pos.service.CustomerService;
 import com.CBSEGroup11pos.util.CustomerTransformer;
-import com.CBSEGroup11pos.util.ProductItemTransformer;
-import com.CBSEGroup11pos.wrapper.CardWrapper;
 import com.CBSEGroup11pos.wrapper.CustomerWrapper;
-import com.CBSEGroup11pos.wrapper.ProductItemWrapper;
-import com.CBSEGroup11pos.wrapper.SupplierWrapper;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -61,6 +51,10 @@ public class CustomerServiceImpl implements CustomerService {
         if (existingEntity != null) {
             existingEntity.setName(updatedCustomer.getName());
             existingEntity.setEmail(updatedCustomer.getEmail());
+            existingEntity.setAge(updatedCustomer.getAge());
+            existingEntity.setAddress(updatedCustomer.getAddress());
+            existingEntity.setGender(updatedCustomer.getGender());
+            existingEntity.setPhone(updatedCustomer.getPhone());
             customerDao.save(existingEntity);
             return updatedCustomer;
         }
@@ -70,7 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public String deleteCustomer(Integer id) {
         customerDao.deleteById(id);
-        return "Deleted Successfully";
+        return "Customer Deleted Successfully";
 
     }
 }
