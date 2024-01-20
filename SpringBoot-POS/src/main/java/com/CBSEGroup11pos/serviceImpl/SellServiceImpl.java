@@ -218,7 +218,7 @@ public class SellServiceImpl implements SellService {
         return null;
     }
 
-    public double convertCurrency(double amount, String fromCurrency, String toCurrency) {
+    public String convertCurrency(double amount, String fromCurrency, String toCurrency) {
         String apiUrl = "https://v6.exchangerate-api.com/v6/615d6d46aa6528aa44f113a1/latest/" +
                 fromCurrency;
         System.out.println("apiUrl: " + apiUrl);
@@ -246,7 +246,9 @@ public class SellServiceImpl implements SellService {
             if (exchangeRate != null) {
                 // Perform the currency conversion
                 double convertedAmount = amount * exchangeRate;
-                return convertedAmount;
+                String conversionResult = "The amount converted from " + fromCurrency + " to " + toCurrency +
+                        " is " + convertedAmount;
+                return conversionResult;
             } else {
                 System.out.println("Conversion rate not available for the target currency.");
             }
@@ -255,7 +257,7 @@ public class SellServiceImpl implements SellService {
             System.out.println("Error converting currency: " + e.getMessage());
         }
 
-        return 0.0; // Return 0.0 in case of an error
+        return "Error converting currency.";
     }
 
     // Inner class representing the response structure from ExchangeRate-API

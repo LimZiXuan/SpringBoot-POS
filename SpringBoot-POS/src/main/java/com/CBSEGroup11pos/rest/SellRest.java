@@ -19,25 +19,25 @@ import com.CBSEGroup11pos.wrapper.PurchaseWrapper;
 
 @RequestMapping(path = "/sell")
 public interface SellRest {
-    @GetMapping(path = "/displayAllProducts")
-    ResponseEntity<List<ProductItemWrapper>> displayAllProducts();
+        @GetMapping(path = "/displayAllProducts")
+        ResponseEntity<List<ProductItemWrapper>> displayAllProducts();
 
-    @GetMapping(path = "/get/{barcode}")
-    ResponseEntity<ProductItemWrapper> getProductByBarcode(@PathVariable String barcode);
+        @GetMapping(path = "/get/{barcode}")
+        ResponseEntity<ProductItemWrapper> getProductByBarcode(@PathVariable String barcode);
 
-    @PostMapping(path = "/{barcode}/{quantity}")
-    ResponseEntity<ProductItemWrapper> sellProduct(@RequestBody String barcode, @RequestBody int quantity);
+        @PostMapping(path = "/{barcode}/{quantity}")
+        ResponseEntity<ProductItemWrapper> sellProduct(@RequestBody String barcode, @RequestBody int quantity);
 
-    @PostMapping(path = "/addPurchase")
-    ResponseEntity<PurchaseWrapper> addPurchase(@RequestBody(required = true) PurchaseWrapper newPurchase);
+        @PostMapping(path = "/addPurchase")
+        ResponseEntity<PurchaseWrapper> addPurchase(@RequestBody(required = true) PurchaseWrapper newPurchase);
 
-    @PutMapping(path = "/payByCard")
-    ResponseEntity<CardWrapper> payByCard(@RequestParam(required = true) String cardNumber,
-            @RequestBody(required = true) CardWrapper newCard);
+        @PutMapping(path = "/payByCard")
+        ResponseEntity<CardWrapper> payByCard(@RequestParam(required = true) String cardNumber,
+                        @RequestBody(required = true) CardWrapper newCard);
 
-    @GetMapping(path = "/convertCurrency/{amount}/{fromCurrency}/{toCurrency}")
-    ResponseEntity<Double> convertCurrency(
-            @PathVariable double amount,
-            @PathVariable String fromCurrency,
-            @PathVariable String toCurrency);
+        @GetMapping(path = "/convertCurrency/{amount}/{fromCurrency}/{toCurrency}")
+        ResponseEntity<String> convertCurrency(
+                        @PathVariable double amount,
+                        @PathVariable String fromCurrency,
+                        @PathVariable String toCurrency);
 }

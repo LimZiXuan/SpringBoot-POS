@@ -24,8 +24,6 @@ public class SellRestImpl implements SellRest {
     private SellService sellService;
     @Autowired
     private ProductService productService;
-    @Autowired
-    private CardService cardService;
 
     @Override
     public ResponseEntity<List<ProductItemWrapper>> displayAllProducts() {
@@ -53,12 +51,12 @@ public class SellRestImpl implements SellRest {
     }
 
     @Override
-    public ResponseEntity<Double> convertCurrency(
+    public ResponseEntity<String> convertCurrency(
             double amount,
             String fromCurrency,
             String toCurrency) {
 
-        double convertedAmount = sellService.convertCurrency(amount, fromCurrency, toCurrency);
+        String convertedAmount = sellService.convertCurrency(amount, fromCurrency, toCurrency);
 
         return ResponseEntity.ok(convertedAmount);
     }
